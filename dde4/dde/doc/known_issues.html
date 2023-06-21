@@ -1,0 +1,34 @@
+<summary class="doc_top_level_summary">Known Issues</summary>
+<div style='font-size:16px;'>
+     This section lists the significant problems we are aware of
+with this DDE release. All of them are on our "do list".
+<p></p>
+<ul>
+   <li>The HCA User Interface for programming Dexter's FPGA is not ready for practical
+        use yet, but getting close.</li>
+  <li>Speech Recognition is not documented.</li>
+  <li>OpenCV in DDE4 not yet working well.</li>
+  <li>About 20 failures in the Test Suite due to DDE3 to 4 conversion</li>
+  <li> <code>Plot.show(...)</code> shows a bunch of icons in the upper right of a plot window.
+       Most of these don't work (at least well).</li>
+   <li> The simulator <b>both</b> setting basically works but real and sim are not in
+       perfect sync.</li>
+   <li> The simulator does not work for DELTA, PID_DELTA, A2D_SIN, A2D_COS.</li>
+  <li>The Messaging software is not yet intended for public use. We're still testing.</li>
+  <li>Jobs menu/Run Jobs on Dexter will take some work to get it to operate smoothly.
+      You'll also need a new SD card image on your Dexter.</li>
+   <li>Picture.detect_blobs: the data about each blob is inconsistent with
+       itself. detect_blobs <i>appears</i> to work but actual x, y locations
+       for each blob are wrong.</li>
+   <li>Picture.show_video() sometimes comes up with a blank video, not showing the
+       output of your webcam. Often just closing the show_window that is attempting
+       to display the video and starting over will work.
+       This intermittent problem also occurs when calling Picture.take_picture
+       which needs webcam output.</li>
+    <li>The new subsystems in DDE of ezTeach to_source_code, OpenCV, and
+        Drawing with DXF are works in progress. They need better support,
+        and their API may change.</li>
+    <li>Dexter Kinematics article in doc pane is incomplete.</li>
+    <li>Dexter.run_gcode needs many extensions.</li>
+</ul>
+</div>
