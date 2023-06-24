@@ -12578,7 +12578,23 @@ Monitor.strips_solve({
              Output pane. As with <button>Eval</button>, selected text in the
              Command Line will be used as the prompt when you click <button>GPT</button>.
          </details>
-         <details class="doc_details"><summary>Prompt Engineering</summary>
+         <details class="doc_details"><summary>Troubleshooting</summary>
+             <details id="gpt_image_not_showing_doc_id" class="doc_details"><summary>Image not showing</summary>
+                 When you've requested a response display of <i>image</i>
+                 and you don't see it after 15 seconds, something's wrong.
+                 It should appear in a new tab just to the right of the one that DDE is in.
+                 <ul>
+                 <li>Its possible that the new tab somehow didn't get made the current one.
+                     So click the tab to the right of the tab that DDE is in to see if its there.</li>
+                 <li>Sometimes the browser blocks a site from automatically opening a new tab.
+                     In chrome a small icon will show up in the right of the address (url) bar.
+                     If you see a new such icon, look at its tooltip and if it sounds like
+                     is disallowing content, click it and allow the image to be shown. </li>
+                 </ul>
+                 Images correspond less well to a prompt than text. Consider images "creative".
+             </details>
+         </details>
+             <details class="doc_details"><summary>Prompt Engineering</summary>
              The way you tell GPT what you want is to give it some text. That text is called
              a <b>prompt</b>. That text can be in
              many natural languages as well as artificial ones (programming languages).
