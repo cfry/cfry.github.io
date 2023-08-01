@@ -2439,8 +2439,18 @@ and see the results in DDE's Output pane.
                      i.e. ":A", ":B", etc. such that the call names in the
                      object definitions remain unique.
                  </li>
-                 <li> <b>drag an input or output circle</b> to connect a wire to an output or input.</li>
-                 <li> <b>shift-click</b> on an input or output to delete its transport (wire).</li>
+                 <li> <b>drag an input or an output</b> to another block's output or input.
+                      You may not connect:
+                     <ul> <li>an input to an input</li>
+                          <li>an output to an output</li>
+                          <li>an output of one block to an input of the same block</li>
+                          <li>more than one transport to a given input</li>
+                          <li>an input to an output of a different type, unless
+                              one or both of the input or output is of type <i>Variant</i></li>
+                     </ul>
+                     You may connect more than one transport to a given output.
+                 </li>
+                 <li> <b>drag an input</b> and drop it on nothing to delete the transport.</li>
                  <li> <b>double-click</b> on a block to show a dialog of operations.</li>
                  <li> <b>2 finger drag</b> (or similar operation) on the editor pane to zoom (expand or shrink) the view.</li>
              </ul>
