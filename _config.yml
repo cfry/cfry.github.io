@@ -1,2 +1,3 @@
-include: [.well-known/acme-challenge/]
+include: 
+  - well-known/acme-challenge/
 title: new title2
