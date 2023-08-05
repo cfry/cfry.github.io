@@ -1,4 +1,2 @@
-include: 
-  - .well-known/acme-challenge/
-title: new title2
-theme: minima
+include:
+  - .well-known
