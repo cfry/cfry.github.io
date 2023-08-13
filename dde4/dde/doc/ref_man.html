@@ -13033,19 +13033,19 @@ OpenAI.make_text(`role:named entities from:
                     We've got something to work with.
 
                     Programmatically, (use <button>Eval</button>)
-                    <pre><code>OpenAI.make_text("single word: cat is a mammal",
+                    <pre><code title="Not in TestSuite">OpenAI.make_text("single word: cat is a mammal",
   function(envelope){
     let data = OpenAI.text_to_data(envelope)
     out(data.first_word_data)
 })</code></pre>
                     The first word of the result, processed into data, is what's printed in the Output pane.
                     If that first word happens to be "Yes" or something similar,
-                    <code>data.first_word_data</code> will be <samp>true</samp>.
+                    <code title="Not in TestSuite">data.first_word_data</code> will be <samp>true</samp>.
                     If the first word is "no" or something similar,
-                    <code>data.first_word_data</code> will be <samp>false</samp>.
+                    <code title="Not in TestSuite">data.first_word_data</code> will be <samp>false</samp>.
                     Otherwise, its not easy to extract a boolean from the result, so just the string of
                     the first word in the result will be the value of
-                    <code>data.first_word_data</code>.<br/>
+                    <code title="Not in TestSuite">data.first_word_data</code>.<br/>
                     Using the above code as a template, you can replace <code>out</code> with a function of
                     your choice.
                     <p/>
