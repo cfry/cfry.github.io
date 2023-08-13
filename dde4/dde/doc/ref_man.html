@@ -78,8 +78,8 @@
             <b>encoding</b> Default: <code>"utf8"</code> See
             <a href="#" onclick="DocCode.open_doc(write_file_doc_id)">encoding details</a><br/>
             <i>Example:</i><br/>
-            <code>DDEFile.append_to_file("ts_junk/append_to_file_test.txt", "hey world")</code>
-            <code>DDEFile.read_file_async("ts_junk/append_to_file_test.txt",
+            <code title="not in TestSuite">DDEFile.append_to_file("ts_junk/append_to_file_test.txt", "hey world")</code>
+            <code title="not in TestSuite">DDEFile.read_file_async("ts_junk/append_to_file_test.txt",
                   function(err, content){out("got content: " + content)})</code>
         </details>
 
@@ -148,7 +148,7 @@
         <code>null</code>, that means the operation succeeded.
         <p></p>
         <i>Examples:</i><br/>
-        <pre><code>DDEFile.copy_file_async(
+        <pre><code title="not in TestSuite">DDEFile.copy_file_async(
     "dde_init.js",
     "ts_junk/dde_init_copy_for_testing.js",
     function(err){
@@ -13011,7 +13011,7 @@ OpenAI.make_text(`role:named entities from:
                     way for use in certain reasoning tasks, including <i>Common Sense Reasoning</i>.
                     OpenAI represents knowledge in English prose. Since English is ambiguous
                     and complex, it is a non-trivial task to extract definitive knowledge from it
-                    for use in computation. DDE's <code>OpenAi.text_to_data</code> is a help,
+                    for use in computation. DDE's <code>OpenAI.text_to_data</code> is a help,
                     but with some prompt engineering, we can do more.
                     <p/>
                     For the below examples, select them and click <button>GPT</button> to
