@@ -12957,7 +12957,7 @@ Hi Joe Schmoe here in Witchita, Kansas on May 24, 2023
 at 1-800-123-4567 from Acme Corp, author of How To Win.
 Contact me at joe@schmoe.com or the New York Times.</code></pre>
                 By using <code>OpenAI.text_to_data</code>, you can get entities as JavaScript data like so:
- <pre><code>
+ <pre><code title="not in TestSuite">
 OpenAI.make_text(`role:named entities from:
     Hi Joe Schmoe here in Witchita, Kansas on May 24, 2023
     at 1-800-123-4567 from Acme Corp, author of How To Win.
@@ -13108,7 +13108,7 @@ OpenAI.make_text(`role:named entities from:
                <p/>
                <i>Examples</i><br/>
                (After selecting the below code, click <button>Eval</button>.)
-<pre><code>
+<pre><code title="not in TestSuite">
 OpenAI.make_text("10 is to 20 as 15 is to",
     function(envelope){
         out("Prompt: " + OpenAI.envelope_to_prompt(envelope) +
@@ -13125,7 +13125,7 @@ OpenAI.make_text("10 is to 20 as 15 is to",
                After selecting the below code, click <button>Eval</button>.
                This will take longer than our other GPT calls because we are
                calling GPT twice, one after the other.
-<pre><code>
+<pre><code title="not in TestSuite">
 OpenAI.make_text("powers of 2 as numbers",
       function(envelope){
         inspect(envelope)
@@ -13172,7 +13172,7 @@ OpenAI.make_text("powers of 2 as numbers",
                    <br/>
                    Returns an object with lots of information
                    extracted from the text, in a format suitable for JavaScript.
-<pre><code>OpenAI.make_text("first 10 power of 2",
+<pre><code title="not in TestSuite">OpenAI.make_text("first 10 power of 2",
    function(envelope){
      out(OpenAI.envelope_to_response(envelope))
      let data = OpenAI.text_to_data(envelope)
@@ -13315,7 +13315,7 @@ OpenAI.make_text("powers of 2 as numbers",
          you think it should. It sometimes comes up with a "cause" that is also an "effect".
          But note, in real life, sometimes a cause is also an effect of the same thing.
          Typicaly, as the number of iterations increases, the quality of the results decreases.
-     </details> <!-- end OpenAi.recursive_doc_id -->
+     </details> <!-- end OpenAI.recursive_doc_id -->
      <details class="doc_details" id="OpenAI.create_embedding_doc_id"><summary>OpenAI.create_embedding</summary>
          Embeddings are a way to encode the semantics of text with an array of numbers.
          You can encode a single word or thousands of them with one array.
