@@ -12503,19 +12503,55 @@ Monitor.strips_solve({
              The first time you click on <button>GPT</button>, it will redirect you
              to the Configuration dialog box. You can also show the dialog by clicking
              on the down arrow to the right of <button>GPT</button>
-             <p></p>
-             The top section of the dialog allows you to enter your organization and API Key,
-             which you can obtain at: <a target="_blank" href="http://openai.com">openai.com</a> .
-             Though this is a paid service, you get quite a bit of initial usage for free after you sign up.
-             Once you enter that information, you can
-             click <button>Update Configuration</button> and start using ChatGPT.
-             <p/>
+             <p id="gpt_openai_keys_help_id">
+             The top section of the GPT Configuration dialog allows you to enter your <b>Organization ID</b>
+                 and secrete <b>API Key</b>.
+             Acquiring these keys from OpenAI is the hardest part of using DDE's GPT Interface.
+             <ol>
+                 <li>Note: these directions match OpenAI's website as of Aug 18, 2023. Expect them
+                    to go out of date.</li>
+                 <li>Browse <a target="_blank" href="http://openai.com">openai.com</a></li>
+                 <li>If you don't have an OpenAI account:<br/>
+                     in the menu in the upper right, choose <b>Sign up</b>
+                     and create a new account.</li>
+                 <li>In the menu in the upper right of openai.com, choose <b>Log in</b></li>
+                 <li>You should see a page with several tiles. Click the <b>API</b> tile.</li>
+                 <li>In the new page, to the right of the menu bar, you should see your Organization name.
+                     (This might be <b>Personal</b> or the name of your company.)
+                     Click it to reveal a menu.</li>
+                 <li>Choose <b>Manage Account</b></li>
+                 <li>You should see your <b>Organization ID</b>. This is a whole bunch of random letters
+                     prefixed by "org-".<br/>
+                     Copy it.</li>
+                 <li> Paste it into the DDE GPT Configuration dialog, <b>Organization ID</b> field.</li>
+                 <li> In the left column, click <b>API Keys</b>.</li>
+                 <li> Click the button <b>Create new secrete key</b>.
+                      Note that OpenAI inconsistently calls this key "API Key" and "Secrete Key".
+                 </li>
+                 <li> This new key will be prefixed with "sk-".
+                     Copy it and paste it into the DDE GPT Configuration dialog, <b>API Key</b> field.</li>
+                 <li> In the DDE GPT configuration dialog, click <input type="button" value="Update Organization ID and API Key"></input></li>
+                 <li> In the left column, click <b>Billing</b>.</li>
+                 <li> Click <b>Payment Method</b>.</li>
+                 <li> Fill in your credit card or whatever.</li>
+                 <li> Click <b>Usage Limits</b>.</li>
+                 <li> Fill in a hard limit that's  easily affordable that also limits the damage
+                      that hackers can do. Say $10 to $25 a month.
+                      You probably won't exceed such limits unless you're automating
+                      a lot of requests. </li>
+                 <li> Test your set up by, in the DDE GPT Configuration dialog,
+                      clicking <input type="button" value="regenerate"></input>.
+                      This resends the last prompt you sent to OpenAI, or, if none, "hello world"</li>
+             </ol>
+             </p>
+
              The bottom section of the configuration dialog has settings that remain persistent even after you relaunch DDE
-             (just like the organization and API Key).
+             (just like the Organization ID and API Key).
              Those setting are used to modify what ChatGPT does for you. You can choose which
-             model to use, and the outout format to get information in, including images
+             model to use, and the output format to get information in, including images
              using Dall-E that can be existing ones on the web or made on the fly according
-             to your request.
+             to your request. We also provide a <b>search_google</b> option, making it easy
+             to get conventional URLs related to the current prompt.
          </details>
          <details class="doc_details"><summary style="color:red;">Responsible Use</summary>
              To get information from GPT you need to tell it what information you want.
