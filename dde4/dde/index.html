@@ -70,7 +70,22 @@
 <input class="awesomplete" list="dl_id"/>--><!--<span style="font-size:30px;">Dexte<img src="dexter_128.png" width="20" alt="r"/> Development Environment</span>
 <i style="font-size:20px;padding-left:20px;">Create software to control the Dexter robot</i><br/>-->
 <!--<div style="width: 100%; height: 100%;margin:0px; padding:0px;">--> <!--height of 99% allows a tiny pink bottom border which is good.-->
-    <div id="outer_splitter_id">
+<div id="loading_screen_id" style="
+    z-index:  999;
+    position: absolute;
+    background: rgba(186, 229, 254, 0.9);
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100vh;
+    font-size:30px !important;
+    font-weight: 500 !important;
+    font-family: Arial;
+">Loading Dexter Development Environment ...</div>
+<div id="outer_splitter_id">
         <div>
             <div id="left_splitter_id"> <!-- splits editor and output pane -->
                 <div id="editor_pane_id" style="display:flex; flex-direction: column;">
@@ -595,7 +610,7 @@
                         <span id="output_pane_help_id" class='pane_header' title="Click for help."><u style="cursor:help;">Output</u></span>
                         <button id="eval_id" style="vertical-align:middle;" title="Evaluate (run) the selected JS in any pane&#013;or, if none, all the JavaScript in the Editor pane.&#013;HTML is rendered in the Output pane.&#013;JSON is inspected.&#013;Can also be invoked by typing &#8984;e">Eval</button>
                         <button id="step_button_id" style="vertical-align:middle;" title="Step through the evaluation of the selected code.">Step</button>
-                        <button id="run_button_id" style="vertical-align:middle;" title="Run Dex Instructions.">Run</button>
+                        <button id="run_button_id" style="vertical-align:middle;" title="The selected source code is:&#13;1. turned into a do_list_item&#13;2. placed on an internal Job's do_list&#13;3. run.">Run</button>
                         <button id="gpt_id"        style="margin-right:0px; vertical-align:middle;" title="Use the selection as a prompt to ChatGPT.&#013;Results will be printed in the Output pane.">GPT</button><button id="gpt_config_id" title="Show the GPT configuration dialog box." style="vertical-align:middle; margin-left:0px;padding-left:2px; padding-right:2px;">&#9660;</button>
 
                         <!--<div style="vertical-align:middle;display:inline-block;margin:0px;padding:0px;"> -->
@@ -715,7 +730,7 @@
                             <details class="doc_details" w3-include-html="doc/dde_overview/Dexter_Development_Environment.html"></details>
                             <details class="doc_details" w3-include-html="doc/browser_vs_dde.html"></details>
                             <details class="doc_details" w3-include-html="doc/mental_model_of_memory.html"></details>
-                            <details class="doc_details" w3-include-html="doc/how_to_think.html"></details>
+                            <details id="how_to_think_id"      class="doc_details" w3-include-html="doc/how_to_think.html"></details>
                             <details id="music_article_doc_id" class="doc_details" w3-include-html="doc/music.html"></details>
                             <details class="doc_details" w3-include-html="doc/dexter_kinematics.html"></details>
                             <details class="doc_details" w3-include-html="doc/glossary.html"></details>
@@ -747,7 +762,6 @@
 
                         <span title="Pause job execution."><input  id="pause_id" type="checkbox" style='cursor:pointer;'/>Pause</span>
                         <button id="go_id"   title="Continue paused job execution." style="padding:2px;cursor:pointer;">Go</button>
-                        <button id="demo_id" title="Moves graphical depiction of Dexter randomly." style="padding:2px">Demo</button>
                         <span title="Expand or shrink this pane.">
                         <input style="display:inline-block; vertical-align:bottom; margin-left:15px; cursor:pointer;" id="misc_pane_expand_checkbox_id" type="checkbox">Expand</input></span>
                         <br/>
@@ -761,11 +775,9 @@
                             <span title="Both simulate and real will be run for Dexter's with a 'simulate' value of null.">
                             <input id="simulate_radio_both_id"  type="radio" name="simulate" value="both"  style="cursor:pointer; "title="Both simulate and real will be run for Dexters with a 'simulate' value of null.">both</input></span> &nbsp;
                         </span>
-                        <span title="If unchecked, simulation&#013;will run as fast as it can.&#013;No pauses for sleep or motion.">
-                            <select onchange="DexterSim.change_speed()" style="display:inline-block; vertical-align:bottom; cursor:pointer;" id="change_dexter_speed_id" title="Change Dexter joints AngularSpeed,&#013;for the simulator ONLY.&#013;This can also be done with Job Instructions like:&#013;Dexter.set_parameter('AngularSpeed', 60)">
-                                <option value="0">Change Speed</option><option value="7.5">slow 7.5 deg/sec</option> <option value="30">default 30 deg/sec</option><option value="120">fast 120 deg/sec</option>
-                            </select>
-                        </span>
+                        <label title="Changes the speed of the simulated running Job.&#013;A value of 1 is normal speed.&#013;0 pauses the Job.">
+                            Speed: <input id="change_dexter_speed_id" type="number" min="0" step="0.1" value="1" onchange="DexterSim.change_speed()" style="width:40px;"/>
+                        </label>
                         <button id="show_queue_id"   title="Show a window&#013;that displays a simulation&#013;of Dexter's instruction queue." style="padding:2px">Show Q </button>
                         <span title="If checked, it will cause stepping of the underlying JavaScript code.&#013;when running a job.">
                             <input style="display:inline-block; vertical-align:bottom; margin-left:15px; cursor:pointer;" id="js_debugger_checkbox_id" type="checkbox" title="If checked, it will cause stepping of the underlying JavaScript code.&#013;when running a job.">JS debugger</input>
@@ -781,7 +793,8 @@
 <!-- used by compute_string_size utility -->
 <div id="compute_string_size_id"
      style="position:absolute;visibility: hidden;height: auto;width: auto;white-space: nowrap;"></div>
-<script               src="./third_party/opencv.js"></script>
+     <script               src="./third_party/opencv.js"></script>
+     <script               src="./third_party/ammo.wasm.js"></script>
 <script type="module" src="build/bundle.mjs" defer></script>
 <!-- <script type="module" src="./build/bundleje.mjs" defer></script> --> <!--don't need this since bundle.mjs includes all that bundleje.js has -->
 
