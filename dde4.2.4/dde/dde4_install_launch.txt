@@ -1,0 +1,254 @@
+DDE4 Install and Launch Instructions
+Fry started: Feb 16, 2022,  updated: May 20, 2022
+
+You can see these instructions by browsing:
+ https://github.com/cfry/dde/blob/dde4/dde/dde4_install_launch.txt
+
+DDE4 can be installed on your Mac or Windows computer,
+OR installed on Dexter itself. This documentation tells you how.
+
+_________DDE4 Install on Mac or Windows__________
+DDE4 requires Node v 17.9.0 to be installed.
+Unfortunately Node v 18 and up won't work on Dexter's OS,
+so to keep compatibility on your Desktop, use Node v 17.9.0 there as well.
+To check if your computer already has this:
+   - Launch a Terminal (or Command Prompt)
+         - MacOS:  - double click on Applications/terminal
+                   - Type in: node --version
+         - WinOS:  On Start menu,
+                   if there is no node.js you must install it.
+                   If there is node.js click on it.
+              then chose option: node.js
+              - at top of screen see the version.
+                (old versions of Node 11 should be updated to version 17.9.0
+                  via the below instructions)
+If you have to download node,
+browse: https://nodejs.org/download/release/v17.9.0/
+and pick the appropriate version for your OS. (MacOS is called "darwin")
+  The latest Macs are M1 so download
+  https://nodejs.org/download/release/v17.9.0/node-v17.9.0-darwin-arm64.tar.gz
+For older "intel processors", use:
+https://nodejs.org/download/release/v17.9.0/node-v17.9.0-darwin-x64.tar.gz
+
+- This will put a file in your Downloads folder, named something like:
+  node-v17.9.0
+- Double click the file to expand it if it has an extension like .tar, .gz or .zip.
+- Double click on the file within that expanded folder of node-v17.9.0
+- This brings up a dialog box. Click continue, agree, install buttons
+  as they come up. (do not install Chocholaty)
+
+- Install ws on Mac or Windows
+  ws is an npm package for WebSocket
+  It needs to be installed in a node_modules folder that node can find.
+  We need version 8.8.0 (or later). 8.8.0 is the current release as of Jul 1, 2022
+  From the MacOS terminal:
+  npm install ws --global
+
+Now Download DDE4 via:
+- Browse: https://github.com/cfry/dde
+- On the left side of the page about 3 inches down you'll see a
+  dropdown button named "master".
+  Click it and choose: "dde4"
+- Type the period character on your keyboard.
+  (Don't hold down any control keys, don't be in a text edit box.
+    Weird, just like normal GitHub UI :-(  )
+- In the VSCode editor that comes up,
+  at the top of the left column
+  right click on "dde" and choose "download".
+  This will prompt for a place to save the file.
+  We recommend navigating to your documents folder,
+  then make a new folder named "dde4" and save the "dde" folder there.
+- inside the dde4/dde/ folder, drag the file httpd.mjs
+  to be directly under the dde4 folder.
+
+We want to end up with the dde4 folder containing just:
+   httpd.mjs
+   dde/
+
+- Launch a terminal program or Command Prompt:
+  On MacOS, Double click on Applications/Utilities/Terminal.app
+
+- cd (change directory) to your newly created dde4 folder.
+
+- Type in: npm install ws@^7.5.1    (ws version 8 is incompatible with the way we create a new Server)
+- Type in: npm install formidable@^2.0.1
+- Type in: npm install modbus-serial@^8.0.5
+
+__________DDE4 Install Node on Dexter____________
+DDE4 requires an updated version of Node (v 18) to be on your Dexter.
+First check to see if you need the new version of node:
+- In a Terminal
+  - Type in: ssh root@192.168.1.142  (or your Dexter's IP address)
+     When prompted, enter Password:  klg
+
+  - Type in: node --version
+       (old versions of Node 11 should be updated to version 16
+       via the below instructions)
+
+If the node version is not 17.9.0 then do the following steps:
+
+- Browse: nodejs.org/dist/v17.9.0/ (v 18 won't run on Dexter Ubuntu 16
+   due to out of date GLIBC C compiler @#$% not easy to install GLIBC.
+    click:  node-v17.9.0-linux-armv7l.tar.xz
+    This is for Dexter's arm71 processor. Its 19Mbytes. Now in fry downloads folder.
+     
+
+- Untar this file.
+  On MacOS, double click it
+  On WinOS
+     You can Launch a Terminal (ie Powershell) app:
+       - Type in: cd Downloads
+       - Type in: tar -xJvf node-v16.13.1-linux-armv7l.tar.xz
+
+     OR use winzip, winrar or 7zip application to unzip (untar) this big file.
+
+- Copy the file named "node" (possibly bin/node, about 75Mbytes)  file to your Dexter:
+  First we must stop node from running on your Dexter.
+  from a terminal program:
+  ssh root@192.168.1.142 //To ssh into Dexter From a mac terminal.
+         you will be prompted for the password. Use: klg
+  cd /usr/bin
+  pkill node  //to stop node from running.
+  mv node node_old  //for backup and we will use this file later.
+
+    Copy (on your Win or Mac)  downloads/node-v16.13.1-linux-armv7l/bin/node
+    To   (on Dexter)           /usr/bin/node (name of the destination file)
+   - On MacOS use cyberduck application to transfer
+   - On WinOS use cyberduck application to transfer
+    You can also use, from your Mac or Win, a terminal program using "scp"
+    scp first arg is the file you want to transfer,
+    which might be in a dfferent location if you
+    unzipped to somewhere else.
+
+    scp downloads/node-v16.13.1-linux-armv7l/bin/node root@192.168.1.142:/usr/bin/
+        (prompts you for a password. Use: klg )
+
+   -  In ssh session to dexter, set node's permissions via enter:
+    chmod node --reference=node_old  to fix up executable permissions to
+            those permissions of the previous version of node
+            which should be: -rwxr-xr-x
+    or
+    chmod +rwxrwxrwx node
+    ls -l node //to verify you've changed the mod correctly
+    node &   //to run node
+
+    node --version //to verify that you have the new version running, enter:
+     and it should give you a version 18 of node.
+
+
+
+The Node server requires 2 extra npm packages:
+formidable  and ModbusRTU, but these should
+already be on your Dexter.
+
+______Install ws and other npm packages on Dexter_______
+From above, you should have node_modules/ws installed.
+(Its hard to find the correct node__modules folder).
+Under it should be a ws folder and under it a package.json file
+Look inside that file to find the version number of ws which
+should be 8.8.0 or later.
+On Mac, use the Cyberduck app to copy this folder
+from your Mac to Dexter.
+In Cyberduck, navigate to /srv/samba/share/www/node_modules
+At the top of the window there is a "Actions" menu. Choose "upload"
+on it. This will present a dialog box of the files in a folder on
+your mac. Navigate to the correct node_modules folder and choose the "ws" folder
+to upload.
+
+Also needed in /srv/samba/share/www/node_modules on Dexter
+@protobufjs  (lots of sub-folders)
+@grpc  which includes subfolders
+   grpc-js       version 1.6.7  or later
+   proto-loader  verison 0.6.12 needed by grpc
+acorn version 8.7.0 or later
+acorn-jsx version 5.3.2 or later
+compare-version version 4.1.3 or later
+espree version 9.3.1 or later
+js-beautify version 1.14.3 or later
+lodash.camelcase version 4.3.0
+pegjs   version 0.10.0 or later needed by strips but also used by "de" and is included in
+        regular browser.
+        probably I should move it to be in job engine but not ready_je.
+        IN any case, should already be part of what's needed in
+        node_modules for dde4.
+protobufjs version 6.11.2 or later
+strips  version 0.0.10 or later
+
+
+
+
+
+_____Install DDE4 server on Dexter_______
+copy dde folder to inside : Dexter folder: /srv/samba/share/www
+Using Cyberduck:
+  click button "openconnection"  OR File Menu/OpenConnection
+  choose option FTP/SFTP
+  Enter: server: 192.168.1.142
+         port:    (leave the default at 22)
+         username: root
+         password: klg
+    click the "connect"  button
+    You should see the file structure of Dexter:
+    Navigate to: /srv/samba/share/www
+    In the Cyberduck dialog box title bar, click on "Action"
+      to get a dropdown menu, choose "Upload".
+    Navigate to the dde folder on your Mac/Win and select that "dde" folder.
+      (this dde folder will have in it subfolders of
+           build,doc,examples, etc. )
+      and click the "upload" button in the lower right of the dialog box.
+
+    Now upload the file "httpd.mjs" (the server) (in the same folder as the dde that
+     you just uploaded.
+    we want to upload httpd.mjs into Dexter /srv/samba/share/www/
+
+    Now upload the file "jobs.html" (in the same folder as the dde that
+     you just uploaded.
+    we want to upload jobs.html into Dexter /srv/samba/share/www/
+
+    in ssh,
+    cd /srv/samba/share/www
+    chmod +rwxrwxrwx httpd.mjs
+
+
+
+
+__________Launching the DDE4 Server_________
+
+- Launch a Terminal
+  On MacOS: Double click on the file: Applications/Utilities/terminal.app
+  On WinOS: bring up Command prompt.
+
+- Type in: cd  dde4  (or where ever you put your dde4 folder)
+- Type in: node httpd.mjs
+
+
+   On Dexter:
+   - Type in: ssh root@192.168.1.142  (or your Dexter's IP address)
+        When prompted, enter Password:  klg
+   - Type in:  cd /srv/samba/share
+   - Type in:  pkill node          (stop the original server)
+   - Type in:  node www/httpd.mjs  (start the new server)
+
+___________Starting DDE4___________
+For Server on MacOS or WinOS to launch DDE:
+  - In the Chrome Web browser, browse: localhost/dde/index.html
+    (stick this URL in the Favorites bar for quick launches.)
+
+  - OR In the Chrome Web browser, browse: localhost
+    and get a page of the "apps" on Dexter.
+    click on dde4
+
+For Server on Dexter to launch DDE:
+  - In the Chrome Web browser, browse: 192.168.1.142/dde/index.html 
+
+You should see the DDE4 user interface page come up.
+
+________Starting Job Engine_______
+For Server on MacOS or WinOS to launch Job Engine:
+  - In the Chrome Web browser, browse: localhost/dde/jobs.html
+
+For Server on Dexter to launch Job Engine:
+  - In the Chrome Web browser, browse: 192.168.1.142/dde/jobs.html 
+
+                               
+
